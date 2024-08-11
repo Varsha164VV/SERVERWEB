@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Form | Dan Aleko</title>
+  <link rel="stylesheet" href="signup.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+  <div class="wrapper">
+    <form action="#"  id="sign-up-form">
+      <h1>Sign Up</h1>
+      <div class="input-box">
+        <input type="text" placeholder="Username" required id="s-name">
+        <i class='bx bxs-user'></i>
+      </div>
+      <div class="input-box">
+        <input type="text" placeholder="Email Id" required id="s-email">
+        <i class='bx bxs-user'></i>
+      </div>
+      <div class="input-box">
+        <input type="password" placeholder="Password" required id="s-password">
+        <i class='bx bxs-lock-alt'></i>
+      </div>
+      <div class="remember-forgot">
+        <label><input type="checkbox">Remember Me</label>
+        <a href="#">Forgot Password</a>
+      </div>
+      <button type="submit" class="btn">Sign Up</button>
+      <div class="register-link">
+        <p>Already have an account? <a href="#">Login</a></p>
+      </div>
+    </form>
+  </div>
+  <script>
+        document.getElementById('sign-up-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+      
+        const name = document.getElementById('s-name').value;
+        const email = document.getElementById('s-email').value;
+        const password = document.getElementById('s-password').value;
+      
+        fetch('http://localhost:5000/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ name, email, password })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.message === 'Signup data received') {
+            window.location.href = 'login.html';  // Redirect to login page on success
+          } else {
+            alert(data.message);  // Show an error message
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('An error occurred. Please try again.');
+        });
+    });
+
+  </script>
+</body>
+</html>
+    
+</body>
+</html>
